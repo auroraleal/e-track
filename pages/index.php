@@ -3,22 +3,6 @@ session_start();
 include '../utils/bd.php';
 include '../utils/valida_login.php';
 
-$result = $conn->query("SELECT COUNT(*) as total
-FROM convenios c WHERE DATEDIFF(c.termino, CURDATE()) <= 10;");
-$vencer_10_dias = $result->fetch(PDO::FETCH_ASSOC);
-
-$result = $conn->query("SELECT COUNT(*) as total
-FROM convenios c WHERE DATEDIFF(c.termino, CURDATE()) > 10 AND DATEDIFF(c.termino, CURDATE()) <= 20;");
-$vencer_20_dias = $result->fetch(PDO::FETCH_ASSOC);
-
-$result = $conn->query("SELECT COUNT(*) as total
-FROM convenios c WHERE DATEDIFF(c.termino, CURDATE()) > 20 AND DATEDIFF(c.termino, CURDATE()) <= 30;");
-$vencer_30_dias = $result->fetch(PDO::FETCH_ASSOC);
-
-$result = $conn->query("SELECT COUNT(*) as total
-FROM convenios c WHERE DATEDIFF(c.termino, CURDATE()) > 30;");
-$vencer_mais_30_dias = $result->fetch(PDO::FETCH_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -26,22 +10,20 @@ $vencer_mais_30_dias = $result->fetch(PDO::FETCH_ASSOC);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>e-Convênios</title>
-  <link href="/e-conv/imagens/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <title>e-track</title>
+  <link href="/e-track/imagens/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../assets/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../dist/css/skins/skin-green-light.min.css">
+  <link rel="stylesheet" href="../assets/css/skin-blue-light.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -159,17 +141,11 @@ $vencer_mais_30_dias = $result->fetch(PDO::FETCH_ASSOC);
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../assets/jsjquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../bower_components/fastclick/lib/fastclick.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../dist/js/demo.js"></script>
+<script src="../assets/js/adminlte.min.js"></script>
 <script>
   $(document).ready(function () {
     $('.sidebar-menu').tree()

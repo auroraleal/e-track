@@ -62,8 +62,8 @@ $stmt->execute();
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>e-Convênios</title>
-  <link href="/e-conv/imagens/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <title>e-track</title>
+  <link href="/e-track/imagens/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -116,7 +116,7 @@ $stmt->execute();
               <?php } ?>
             </div>
             <div class="col-xs-12">
-              <a href="novo.php" class="btn btn-success" style="margin-bottom: 20px; margin-top: 20px"><i class= "fa fa-plus-square"></i> </a>
+              <a href="novo.php" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px"><i class= "fa fa-plus-square"></i> </a>
             </div>
             <!-- /.box-header -->
           <div class="col-xs-12">

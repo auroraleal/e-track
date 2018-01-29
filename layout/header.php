@@ -1,11 +1,11 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="/e-conv/pages/index.php" class="logo">
+    <a href="/e-track/pages/index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>CONV</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>e-Convênios</b></span>
+      <span class="logo-lg"><b>e-track</b></span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -21,14 +21,14 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/e-conv/imagens/user-gray.png" class="user-image" alt="User Image"/>              
+              <img src="/e-track/imagens/user-gray.png" class="user-image" alt="User Image"/>              
               <span class="hidden-xs"><?php echo $_SESSION['email'] . ' - ' . $_SESSION['perfil']; ?></span>
             </a>
           </li>
           
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="/e-conv/controllers/LogoutController.php">
+            <a href="/e-track/controllers/LogoutController.php">
               <i class="fa fa-sign-out"></i> Sair
             </a>
           </li>

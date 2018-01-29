@@ -14,8 +14,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/e-conv/pages/convenios/novo.php"><i class="fa fa-edit"></i> Cadastrar</a></li>
-            <li><a href="/e-conv/pages/convenios/listar.php"><i class="fa fa-list"></i> Listar</a></li>
+            <li><a href="/e-track/pages/convenios/novo.php"><i class="fa fa-edit"></i> Cadastrar</a></li>
+            <li><a href="/e-track/pages/convenios/listar.php"><i class="fa fa-list"></i> Listar</a></li>
           </ul>
         </li>
 
@@ -27,8 +27,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/e-conv/pages/usuarios/novo.php"><i class="fa  fa-user-plus "></i> Cadastrar</a></li>
-            <li><a href="/e-conv/pages/usuarios/listar.php"><i class="fa fa-users"></i> Listar</a></li>
+            <li><a href="/e-track/pages/usuarios/novo.php"><i class="fa  fa-user-plus "></i> Cadastrar</a></li>
+            <li><a href="/e-track/pages/usuarios/listar.php"><i class="fa fa-users"></i> Listar</a></li>
           </ul>
         </li>
     </section>
