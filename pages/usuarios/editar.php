@@ -1,7 +1,20 @@
 <?php 
 session_start();
 include '../../utils/bd.php';
-include '../../utils/valida_login.php'; 
+include '../../utils/valida_login.php';
+
+$stmt = $conn->prepare("SELECT u.nome as nome, u.email as email, 
+p.id as perfil_id, c.idcliente as cliente_id,
+u.senha as senha
+FROM usuario u 
+INNER JOIN perfil p ON u.perfil_id = p.id
+LEFT JOIN cliente c ON u.cliente_id= c.idcliente
+WHERE u.id = :id ");
+
+$stmt->bindParam(':id', $_REQUEST['id']);
+$stmt->execute();
+
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -59,42 +72,45 @@ include '../../utils/valida_login.php';
             
    			<div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Cadastrar Novo Usuario</h3>
+              <h3 class="box-title">Editar Usuario</h3>
             </div>
             <!-- /.box-header -->
-            <form role="form" action="../../controllers/usuario/novo.php" method="post">
+            <form role="form" action="../../controllers/usuario/editar.php" method="post">
             <div class="box-body">
-              
+            <input type="hidden" name="id" value="<?=$_REQUEST['id']?>">
             <div class="col-md-4">
               <div class="form-group">
                       <label>Nome</label>
-                      <input type="text" name= "nome" class="form-control" placeholder="Digite o nome">
+                      <input type="text" name="nome" class="form-control" value="<?=$result['nome']?>">
                   </div>
             </div>
 
             <div class="col-md-4">
               <div class="form-group">
                       <label>Email</label>
-                      <input type="text" name= "email" class="form-control" placeholder="Digite o email">
+                      <input  type="text" name= "email" class="form-control" value="<?=$result['email']?>">
                   </div>
             </div>
 
             <div class="col-md-4">
               <div class="form-group">
                       <label>Senha</label>
-                      <input type="password" name= "senha" class="form-control">
+                      <input type="password" name="senha" class="form-control" value="<?=$result['senha']?>">
                   </div>
             </div>
 
-
-              	<div class="col-md-4">
+            <div class="col-md-4">
 	        		<div class="form-group">
                   		<label>Perfil</label>
 		                  <select class="form-control" name="perfil">
                             <option value="">Selecione</option>
                         <?php
         foreach($conn->query('SELECT * FROM perfil') as $row) {
-            echo '<option value="'.$row['id'].'">'.$row['nome'].'</option>';
+            if ($row['id'] == $result['perfil_id']) {
+              echo '<option selected value="'.$row['id'].'">'.$row['nome'].'</option>';              
+            } else {
+              echo '<option value="'.$row['id'].'">'.$row['nome'].'</option>';          
+            }
         }       
     ?>
 		                  </select>
@@ -108,8 +124,12 @@ include '../../utils/valida_login.php';
                             <option value="">Selecione</option>
                         <?php
         foreach($conn->query('SELECT * FROM cliente') as $row) {
-            echo '<option value="'.$row['idcliente'].'">'.$row['nome'].'</option>';
-        }       
+          if ($row['idcliente'] == $result['cliente_id']) {
+            echo '<option selected value="'.$row['idcliente'].'">'.$row['nome'].'</option>';              
+          } else {
+            echo '<option value="'.$row['idcliente'].'">'.$row['nome'].'</option>';          
+          }
+        }
     ?>
 		                  </select>
                 	</div>

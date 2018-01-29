@@ -1,11 +1,13 @@
-
 <?php
 session_start();
 include '../utils/bd.php';
 include '../../utils/valida_login.php';
 
-
-$stmt = $conn->prepare("SELECT u.email, p.nome as perfil FROM usuario u INNER JOIN perfil p ON u.perfil_id = p.id WHERE u.email = :email AND u.senha = :senha ");
+$stmt = $conn->prepare("SELECT u.id, u.email, p.nome as perfil, c.idcliente as client_id 
+FROM usuario u 
+INNER JOIN perfil p ON u.perfil_id = p.id
+LEFT JOIN cliente c ON u.cliente_id= c.idcliente
+WHERE u.email = :email AND u.senha = :senha ");
 
 $senha = md5($_POST['senha']);
 
@@ -19,11 +21,28 @@ if (empty($results)) {
 	$_SESSION['erro'] = "Usuário inexistente";
 	header("Location: ../pages/login.php");
 } else {
+	if (isset($results['client_id'])) {
+		$_SESSION['client_id'] = $results['client_id'];		
+	}
+
+	$_SESSION['id'] = $results['id'];
 	$_SESSION['email'] = $results['email'];
 	$_SESSION['perfil'] = $results['perfil'];
 
-	header("Location: ../pages/index.php");
+	switch ($results['perfil']) {
+		case 'Administrador' :
+			header("Location: ../pages/usuarios/listar.php");
+			break;
+		case 'Cliente' :
+			header("Location: ../pages/carga/listar.php");
+			break;
+		case 'Operador Triagem' :
+			header("Location: ../pages/operador/pesquisar.php");		
+			break;
+		case 'Operador ETC' :
+			header("Location: ../pages/operador/pesquisar.php");
+			break;		
+	}
 }
-
 
 ?>

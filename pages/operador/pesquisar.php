@@ -48,10 +48,19 @@ include '../../utils/valida_login.php';
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-
+<center>
     <!-- Main content -->
     <section class="content">
-    	<div class="row">
+    <div class="col-xs-12">
+              <?php if (isset($_SESSION['msg'])) { ?>
+              <div class="alert alert-info">
+                <strong>Info:</strong> 
+                <?php echo $_SESSION['msg']; unset($_SESSION['msg']);?>
+              </div>
+              <?php } ?>
+            </div>
+            
+    	<div style="margin-top: 50px" class="row">
 	        <!-- left column -->
 
     	<div style="margin-left: 100px" class="col-md-10">
@@ -59,65 +68,21 @@ include '../../utils/valida_login.php';
             
    			<div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Cadastrar Novo Usuario</h3>
+              <h3 class="box-title">Pesquisar Carga</h3>
             </div>
             <!-- /.box-header -->
-            <form role="form" action="../../controllers/usuario/novo.php" method="post">
+            <form role="form" action="visualizar.php" method="post">
             <div class="box-body">
               
-            <div class="col-md-4">
+            <div class="col-md-offset-4 col-md-4">
               <div class="form-group">
-                      <label>Nome</label>
-                      <input type="text" name= "nome" class="form-control" placeholder="Digite o nome">
+                      <label>Placa</label>
+                      <input type="text" name="placa" class="form-control" placeholder="Digite o número da placa">
                   </div>
             </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                      <label>Email</label>
-                      <input type="text" name= "email" class="form-control" placeholder="Digite o email">
-                  </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                      <label>Senha</label>
-                      <input type="password" name= "senha" class="form-control">
-                  </div>
-            </div>
-
-
-              	<div class="col-md-4">
-	        		<div class="form-group">
-                  		<label>Perfil</label>
-		                  <select class="form-control" name="perfil">
-                            <option value="">Selecione</option>
-                        <?php
-        foreach($conn->query('SELECT * FROM perfil') as $row) {
-            echo '<option value="'.$row['id'].'">'.$row['nome'].'</option>';
-        }       
-    ?>
-		                  </select>
-                	</div>
-            </div>
-            
-            <div class="col-md-4">
-	        		<div class="form-group">
-                  		<label>Cliente</label>
-		                  <select class="form-control" name="cliente">
-                            <option value="">Selecione</option>
-                        <?php
-        foreach($conn->query('SELECT * FROM cliente') as $row) {
-            echo '<option value="'.$row['idcliente'].'">'.$row['nome'].'</option>';
-        }       
-    ?>
-		                  </select>
-                	</div>
-		        </div>
-
 </div>
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary" style="margin-left: 15px">Salvar</button>
+              <button type="submit" class="btn btn-primary" style="margin-left: 15px">Pesquisar</button>
             </div>
 
 </form>
@@ -125,6 +90,7 @@ include '../../utils/valida_login.php';
 </div>
 </div>
     </section>
+</center>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

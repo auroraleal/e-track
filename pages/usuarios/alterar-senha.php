@@ -1,16 +1,24 @@
-<?php
+<?php 
 session_start();
 include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("SELECT u.id, u.nome, u.email, 
-p.nome as perfil, c.nome as cliente, u.senha 
+$stmt = $conn->prepare("SELECT u.nome as nome, u.email as email, 
+p.id as perfil_id, c.idcliente as cliente_id,
+u.senha as senha
 FROM usuario u 
-INNER JOIN perfil p ON u.perfil_id = p.id 
-LEFT JOIN cliente c ON u.cliente_id = c.idcliente;");
+INNER JOIN perfil p ON u.perfil_id = p.id
+LEFT JOIN cliente c ON u.cliente_id= c.idcliente
+WHERE u.id = :id ");
+
+$stmt->bindParam(':id', $_REQUEST['id']);
 $stmt->execute();
+
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,74 +64,50 @@ $stmt->execute();
 
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
+    	<div class="row">
+      <div class="col-xs-12">
           <?php if (isset($_SESSION['msg'])) { ?>
     <div class="alert alert-info">
       <strong>Info:</strong> 
       <?php echo $_SESSION['msg']; unset($_SESSION['msg']);?>
     </div>
   <?php } ?>
+	        <!-- left column -->
 
-        </div>
-        <div class="col-xs-12">
-          <a href="novo.php" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px"><i class= "fa fa-plus-square"></i> </a>
-        </div>
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"><b>Lista de Usuários</b></h3>
+    	<div style="margin-left: 100px" class="col-md-10">
+          <!-- general form elements -->
+          <center>
+   			<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Alterar Senha</h3>
             </div>
             <!-- /.box-header -->
+            
+            <form role="form" action="../../controllers/usuario/alterar-senha.php" method="post">
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th style="text-align: center">Nome</th>
-                  <th style="text-align: center">Email</th>
-                  <th style="text-align: center">Perfil</th>
-                  <th style="text-align: center">Cliente</th>
-                  <th style="text-align: center">Senha</th>
-                  <th style="text-align: center">Opções</th>
-                </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                    {
-                      $id = $row['id'];
-                      echo '<tr>';
-                        echo "<td align='center'>" . $row['nome'] . '</td>';
-                        echo "<td align='center'>" . $row['email'] . '</td>';
-                        echo "<td align='center'>" . $row['perfil'] . '</td>';
-                        echo "<td align='center'>" . $row['cliente'] . '</td>';
-                        echo "<td align='center'>" . $row['senha'] . '</td>';
-                        
-                    ?>
-                    <td align='center'><a onclick="return confirm('Deseja realmente excluir?');" href='../../controllers/usuario/excluir.php?id=<?=$id?>' class='btn btn-danger'><i class='fa fa-trash'></i></a>
+              <div class="col-md-offset-4 col-md-4">
+                <div class="form-group">
+                        <label>Nova Senha</label>
+                        <input type="password" name="senha" class="form-control">
+                    </div>
+              </div>
+            
+</div>
 
-                    <?php 
-                      echo "&nbsp;&nbsp<a href='editar.php?id=$id' title='Alterar Senha' class='btn btn-primary'><i class='fa fa-edit'></i></a>"  . '</td>';
-                      echo '</tr>';
-                  } ?>
-                </tbody>
-              </table>
-
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary" style="margin-left: 15px">Salvar</button>
             </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+            </center>
+</form>
+</div>
+</div>
+</div>
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
-  <?php include ('/e-track/layout/footer.html');?>
+  <?php include ('../../layout/footer.html');?>
 </div>
 <!-- ./wrapper -->
 
