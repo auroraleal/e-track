@@ -135,9 +135,9 @@ catch(PDOException $e)
                   <p style="font-size: 20px; color: red"><?=$erro?></p>
                 </center>
               <?php } ?>
-              <form role="form" action="../../controllers/operador/confirmar-carga.php" method="post">
+              <form role="form" action="../../controllers/carga/excluir.php" method="post">
                 <input type="hidden" name="idcarga" value="<?=$results['idcarga']?>"/>
-                <input type="hidden" name="operacao" value="<?=$operacao?>"/>
+                <input type="hidden" name="operacao" value="EXCLUIR"/>
                 <div class="row">
                   <div class="col-md-6">
                     <p style="font-size: 20px">Nota Fiscal: <?=$results['nota_fiscal']?></p>

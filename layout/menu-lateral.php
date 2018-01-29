@@ -17,7 +17,7 @@
           <ul class="treeview-menu">
             <li><a href="/e-track/pages/carga/novo.php"><i class="fa fa-edit"></i> Cadastrar</a></li>
             <li><a href="/e-track/pages/carga/listar.php"><i class="fa fa-list"></i> Listar</a></li>
-          </ul>
+         </ul>
         </li>
         <?php } ?>
         <?php if ($_SESSION['perfil'] == 'Operador Triagem' || 
@@ -49,7 +49,7 @@
             <li><a href="/e-track/pages/usuarios/listar.php"><i class="fa fa-users"></i> Listar</a></li>
           <?php } ?>
             <li><a href="/e-track/pages/usuarios/alterar-senha.php"><i class="fa fa-key"></i> Alterar Senha</a></li>
-          </ul>
+         </ul>
         </li>
     </section>
     <!-- /.sidebar -->

@@ -5,9 +5,9 @@ include '../../utils/valida_login.php';
 
 if (isset($_SESSION['client_id'])) {
   $client_id = $_SESSION['client_id'];
-  $stmt = $conn->prepare("SELECT * FROM carga WHERE cliente_id = $client_id;");
+  $stmt = $conn->prepare("SELECT * FROM carga WHERE visivel = true AND cliente_id = $client_id;");
 } else {
-  $stmt = $conn->prepare("SELECT * FROM carga");
+  $stmt = $conn->prepare("SELECT * FROM carga WHERE visivel = true");
 }
 
 $stmt->execute();

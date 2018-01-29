@@ -4,7 +4,7 @@ include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
 $placa = $_REQUEST['placa'];
-$stmt = $conn->prepare("SELECT * FROM carga WHERE placa = '$placa'");
+$stmt = $conn->prepare("SELECT * FROM carga WHERE visivel = true AND placa = '$placa'");
 
 try
 {

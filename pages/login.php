@@ -12,8 +12,8 @@
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../assets/css/font-awesome/css/font-awesome.min.css"
-  
+  <link rel="stylesheet" href="../assets/css/font-awesome/css/font-awesome.min.css"  
+
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/css/AdminLTE.min.css">
 
@@ -39,7 +39,7 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <img src="../imagens/logo.png"></img>
-    <h2 style="text-align: center;">e-TRACK </h2>
+   <h2 style="text-align: center;">e-TRACK </h2>
     <hr/>
 
     <form action="../controllers/LoginController.php" method="post">

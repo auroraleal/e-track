@@ -64,7 +64,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     <!-- Main content -->
     <section class="content">
-    	<div class="row">
+    	<div style="margin-top: 50px" class="row">
       <div class="col-xs-12">
           <?php if (isset($_SESSION['msg'])) { ?>
     <div class="alert alert-info">
