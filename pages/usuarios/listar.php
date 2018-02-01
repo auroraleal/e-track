@@ -4,10 +4,10 @@ include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
 $stmt = $conn->prepare("SELECT u.id, u.nome, u.email, 
-p.nome as perfil, c.nome as cliente, u.senha 
+p.nome as perfil, c.nome as cliente ,u.senha 
 FROM usuario u 
-INNER JOIN perfil p ON u.perfil_id = p.id 
-LEFT JOIN cliente c ON u.cliente_id = c.idcliente;");
+INNER JOIN perfil p ON u.perfil_id = p.id
+LEFT JOIN cliente c ON u.cliente_id = c.idcliente");
 $stmt->execute();
 ?>
 

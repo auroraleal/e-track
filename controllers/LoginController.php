@@ -3,7 +3,7 @@ session_start();
 include '../utils/bd.php';
 include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("SELECT u.id, u.email, p.nome as perfil, c.idcliente as client_id 
+$stmt = $conn->prepare("SELECT u.id, u.email, p.nome as perfil, c.idcliente as cliente_id 
 FROM usuario u 
 INNER JOIN perfil p ON u.perfil_id = p.id
 LEFT JOIN cliente c ON u.cliente_id= c.idcliente
@@ -21,8 +21,8 @@ if (empty($results)) {
 	$_SESSION['erro'] = "Usuário inexistente";
 	header("Location: ../pages/login.php");
 } else {
-	if (isset($results['client_id'])) {
-		$_SESSION['client_id'] = $results['client_id'];		
+	if (isset($results['cliente_id'])) {
+		$_SESSION['cliente_id'] = $results['cliente_id'];		
 	}
 
 	$_SESSION['id'] = $results['id'];

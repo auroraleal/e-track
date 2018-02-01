@@ -5,7 +5,6 @@ include '../../utils/valida_login.php';
 
 try
 {
-
 $stmt = $conn->prepare("INSERT INTO carga(cliente_id, nota_fiscal, ct_e,
 link_ct_e,
 placa,

@@ -10,13 +10,13 @@ if (isset($_SESSION['client_id'])) {
 } else {
   switch ($_SESSION['perfil']) {
     case 'Operador Triagem':
-      $stmt = $conn->prepare("SELECT * FROM carga WHERE entrada_etc_itaituba IS NULL ORDER BY saida_triagem");
+      $stmt = $conn->prepare("SELECT * FROM carga ORDER BY entrada_triagem");
       break;
     case 'Operador ETC':
-      $stmt = $conn->prepare("SELECT * FROM carga WHERE saida_triagem IS NOT NULL ORDER BY saida_etc_itaituba");
+      $stmt = $conn->prepare("SELECT * FROM carga ORDER BY entrada_etc_itaituba");
       break;
     default:
-      $stmt = $conn->prepare("select * from carga");
+      $stmt = $conn->prepare("SELECT * FROM carga");
       break;
   }
 }
@@ -72,7 +72,7 @@ $stmt->execute();
 
           <!-- Main content -->
         <section class="content">
-          <div class="row">
+          <div style="margin-top: 50px" class="row">
             <div class="col-xs-12">
               <?php if (isset($_SESSION['msg'])) { ?>
               <div class="alert alert-info">
@@ -80,9 +80,6 @@ $stmt->execute();
                 <?php echo $_SESSION['msg']; unset($_SESSION['msg']);?>
               </div>
               <?php } ?>
-            </div>
-            <div class="col-xs-12">
-              <a href="novo.php" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px"><i class= "fa fa-plus-square"></i> </a>
             </div>
             <!-- /.box-menu-superior -->
           <div class="col-xs-12">
@@ -97,6 +94,7 @@ $stmt->execute();
               <table id="tabela" class="table table-condensed table-striped">
                 <thead>
                 <tr>
+                  <th style="text-align: center">Código</th>
                   <th style="text-align: center">Nota Fiscal</th>
                   <th style="text-align: center">CT-e</th>
                   <th style="text-align: center">Link CT-e</th>
@@ -107,8 +105,8 @@ $stmt->execute();
                   <th style="text-align: center">Quantidade</th>
                   <th style="text-align: center">Ent. Triagem</th>
                   <th style="text-align: center">Saida Triagem</th>
-                  <th style="text-align: center">Ent. Itaituba</th>
-                  <th style="text-align: center">Saida Itaituba</th>
+                  <th style="text-align: center">Ent. ETC Itaituba</th>
+                  <th style="text-align: center">Saida ETC Itaituba</th>
                   <th style="text-align: center">Opções</th>
           
                 </tr>
@@ -145,6 +143,7 @@ $stmt->execute();
                       $placa = $row['placa'];
 
                       echo '<tr>';
+                        echo "<td align='center'>" . $row['idcarga'] .'</td>';  
                         echo "<td align='center'>" . $row['nota_fiscal'] .'</td>';
                         echo "<td align='center'>" . $row['ct_e'] .'</td>';
                         echo "<td align='center'>" . $row['link_ct_e'] . '</td>';

@@ -116,7 +116,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 		                  </select>
                 	</div>
             </div>
-
+            
             <div class="col-md-4">
 	        		<div class="form-group">
                   		<label>Cliente</label>
@@ -124,12 +124,12 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
                             <option value="">Selecione</option>
                         <?php
         foreach($conn->query('SELECT * FROM cliente') as $row) {
-          if ($row['id'] == $result['perfil_id']) {
-            echo '<option selected value="'.$row['idcliente'].'">'.$row['nome'].'</option>';
+          if ($row['idcliente'] == $result['cliente_id']) {
+            echo '<option selected value="'.$row['idcliente'].'">'.$row['nome'].'</option>';              
           } else {
-            echo '<option value="'.$row['idcliente'].'">'.$row['nome'].'</option>';
+            echo '<option value="'.$row['idcliente'].'">'.$row['nome'].'</option>';          
           }
-        }       
+        }
     ?>
 		                  </select>
                 	</div>

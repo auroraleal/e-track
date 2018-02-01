@@ -6,7 +6,8 @@ include '../../utils/valida_login.php';
 $stmt = $conn->prepare("SELECT u.id, u.nome, u.email, 
 p.nome as perfil, c.nome as cliente, u.senha 
 FROM usuario u 
-INNER JOIN perfil p ON u.perfil_id = p.id;");
+INNER JOIN perfil p ON u.perfil_id = p.id 
+LEFT JOIN cliente c ON u.cliente_id = c.idcliente;");
 $stmt->execute();
 ?>
 
@@ -16,6 +17,7 @@ $stmt->execute();
 <title>e-track</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="/e-track/assets/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -81,6 +83,7 @@ $stmt->execute();
                   <th style="text-align: center">Nome</th>
                   <th style="text-align: center">Email</th>
                   <th style="text-align: center">Perfil</th>
+                  <th style="text-align: center">Cliente</th>
                   <th style="text-align: center">Senha</th>
                   <th style="text-align: center">Opções</th>
                 </tr>
@@ -95,11 +98,16 @@ $stmt->execute();
                         echo "<td align='center'>" . $row['nome'] . '</td>';
                         echo "<td align='center'>" . $row['email'] . '</td>';
                         echo "<td align='center'>" . $row['perfil'] . '</td>';
+                        echo "<td align='center'>" . $row['cliente'] . '</td>';
                         echo "<td align='center'>" . $row['senha'] . '</td>';
                         
                     ?>
-                    
-                    <?php } ?>
+                    <td align='center'><a onclick="return confirm('Deseja realmente excluir?');" href='../../controllers/usuario/excluir.php?id=<?=$id?>' class='btn btn-danger'><i class='fa fa-trash'></i></a>
+
+                    <?php 
+                      echo "&nbsp;&nbsp<a href='editar.php?id=$id' title='Alterar Senha' class='btn btn-primary'><i class='fa fa-edit'></i></a>"  . '</td>';
+                      echo '</tr>';
+                  } ?>
                 </tbody>
               </table>
 
