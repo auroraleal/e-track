@@ -18,6 +18,7 @@ VALUES
 :produto, :quantidade_carregada)");
 
 $data_carregamento = date("Y-m-d", strtotime($_POST['data_carregamento']));
+$quantidade_carregada = $str_replace(',','.', str_replace('.','', $_POST['quantidade_carregada']));
 
 $stmt->bindParam(':cliente_id', $_SESSION['cliente_id']);
 $stmt->bindParam(':nota_fiscal', $_POST['nota_fiscal']);
@@ -27,7 +28,7 @@ $stmt->bindParam(':placa', $_POST['placa']);
 $stmt->bindParam(':cnpj_transportadora', $_POST['cnpj_transportadora']);
 $stmt->bindParam(':data_carregamento', $data_carregamento);
 $stmt->bindParam(':produto', $_POST['produto']);
-$stmt->bindParam(':quantidade_carregada', $_POST['quantidade_carregada']);
+$stmt->bindParam(':quantidade_carregada', $quantidade_carregada);
 
 
 	$stmt->execute();

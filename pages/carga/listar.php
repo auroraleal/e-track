@@ -6,11 +6,37 @@ include '../../utils/valida_login.php';
 if (isset($_POST['pesquisar'])) {
   if (isset($_SESSION['client_id'])) {
     $client_id = $_SESSION['client_id'];
-    $stmt = $conn->prepare("SELECT * FROM carga WHERE visivel = true AND cliente_id = $client_id;");
+    $query = "SELECT * FROM carga WHERE visivel = true AND cliente_id = $client_id";
   } else {
-    $stmt = $conn->prepare("SELECT * FROM carga WHERE visivel = true");
+    $query = "SELECT * FROM carga WHERE visivel = true";  
+  }
+
+  if (!empty($_POST['data_carregamento'])) {
+    $data_carregamento = date_create_from_format('d/m/Y', $_POST['data_carregamento']);
+    $query .= " AND data_carregamento = '" .  $data_carregamento->format('Y-m-d') . "'";
   }
   
+  if (!empty($_POST['entrada_triagem'])) {
+    $entrada_triagem = date_create_from_format('d/m/Y', $_POST['entrada_triagem']);
+    $query .= " AND DATE(entrada_triagem) = '" .  $entrada_triagem->format('Y-m-d') . "'";
+  }
+
+  if (!empty($_POST['saida_triagem'])) {
+    $saida_triagem = date_create_from_format('d/m/Y', $_POST['saida_triagem']);
+    $query .= " AND DATE(saida_triagem) = '" .  $saida_triagem->format('Y-m-d') . "'";
+  }
+
+  if (!empty($_POST['entrada_etc_itaituba'])) {
+    $entrada_etc_itaituba = date_create_from_format('d/m/Y', $_POST['entrada_etc_itaituba']);
+    $query .= " AND DATE(entrada_etc_itaituba) = '" .  $entrada_etc_itaituba->format('Y-m-d') . "'";
+  }
+
+  if (!empty($_POST['saida_etc_itaituba'])) {
+    $saida_etc_itaituba = date_create_from_format('d/m/Y', $_POST['saida_etc_itaituba']);
+    $query .= " AND DATE(saida_etc_itaituba) = '" .  $saida_etc_itaituba->format('Y-m-d') . "'";
+  }
+
+  $stmt = $conn->prepare($query);
   $stmt->execute();
 }
 
@@ -147,7 +173,7 @@ if (isset($_POST['pesquisar'])) {
                     <th style="text-align: center">Transportadora</th>
                     <th style="text-align: center">Data Carregamento</th>
                     <th style="text-align: center">Produto</th>
-                    <th style="text-align: center">Quantidade</th>
+                    <th style="text-align: center">Quantidade (KG)</th>
                     <th style="text-align: center">Ent. Triagem</th>
                     <th style="text-align: center">Saida Triagem</th>
                     <th style="text-align: center">Ent. ETC Itaituba</th>
@@ -195,7 +221,7 @@ if (isset($_POST['pesquisar'])) {
                       echo "<td align='center'>" . $row['cnpj_transportadora'] .'</td>';
                       echo "<td align='center'>" . $data_carregamento .'</td>';
                       echo "<td align='center'>" . $row['produto'] . '</td>';
-                      echo "<td align='center'>" . $row['quantidade_carregada'] .' KG</td>';
+                      echo "<td align='center'>" . $row['quantidade_carregada'] .'</td>';
                       echo "<td align='center' style='color: red'>" . $entrada_triagem .'</td>';
                       echo "<td align='center' style='color: red'>" . $saida_triagem .'</td>';
                       echo "<td align='center' style='color: red'>" . $entrada_etc_itaituba . '</td>';
@@ -254,12 +280,12 @@ $(document).ready(function() {
 
     $('#tabela').dataTable({
         oLanguage: {
-            "sLengthMenu": "Mostrar _MENU_ registros por página",
+            "sLengthMenu": "Exibir _MENU_ registros por página",
             "sZeroRecords": "Nenhum registro encontrado",
-            "sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
-            "sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
+            "sInfo": "Exibindo _START_ / _END_ de _TOTAL_ registro(s)",
+            "sInfoEmpty": "Exibindo 0 / 0 de 0 registros",
             "sInfoFiltered": "(filtrado de _MAX_ registros)",
-            "sSearch": "Pesquisar: ",
+            "sSearch": "Filtrar: ",
             "oPaginate": {
                 "sFirst": "Início",
                 "sPrevious": "Anterior",
@@ -271,6 +297,9 @@ $(document).ready(function() {
         buttons: [
           {
             extend:    'excelHtml5',
+            exportOptions: {
+              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+            },
             text:      '<i class="fa fa-file-excel-o"></i>',
             titleAttr: 'Exportar - Excel'
           },
@@ -283,7 +312,7 @@ $(document).ready(function() {
             text:      '<i class="fa fa-file-pdf-o"></i>',
             download: 'open',
             titleAttr: 'Exportar - PDF',
-            customize: function ( doc ) {
+            customize: function ( doc ) {              
               doc.footer = (function(page, pages) {
                 // Obtém a data/hora atual
                 var data = new Date();
@@ -312,7 +341,7 @@ $(document).ready(function() {
                   columns: [
                     'Emitido em: ' + str_data,
                     {
-                      alignment: 'center',
+                      alignment: 'right',
                       text: [
                         { text: 'Página ' + page.toString(), italics: true },
                         ' de ',
@@ -323,6 +352,30 @@ $(document).ready(function() {
                   margin: [10, 0]
                 }
               });
+              /*doc['styles'] = {
+                userTable: {
+                    margin: [0, 15, 0, 15]
+                },
+                tableHeader: {
+                    bold:!0,
+                    fontSize:11,
+                    color:'white',
+                    fillColor:'#3c8dbc',
+                    alignment:'center'
+                }
+              };*/
+              doc['styles'] = {
+                userTable: {
+                    margin: [0, 15, 0, 15]
+                },
+                tableHeader: {
+                    bold:!0,
+                    fontSize:11,
+                    color:'white',
+                    fillColor:'#090a32',
+                    alignment:'center'
+                }
+              };
               doc.content.splice( 1, 0, {
                 margin: [ 0, 0, 0, 12 ],
                 alignment: 'center',
