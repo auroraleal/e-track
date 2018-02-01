@@ -90,13 +90,13 @@ include '../../utils/valida_login.php';
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>CNPJ da Transportadora</label>
-                        <input type="text" class="form-control" name="cnpj_transportadora">
+                        <input type="text" class="form-control cnpj" name="cnpj_transportadora">
                     </div>
                 </div> 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Data Carregamento</label>
-                        <input type="text" class="form-control" name="data_carregamento">
+                        <input type="text" class="form-control date" name="data_carregamento">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -112,7 +112,7 @@ include '../../utils/valida_login.php';
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Quantidade Carregada (KG)</label>
-                        <input type="text" class="form-control" name="quantidade_carregada">
+                        <input type="text" class="form-control money" name="quantidade_carregada">
                     </div>
                 </div>
 </div>
@@ -133,9 +133,17 @@ include '../../utils/valida_login.php';
 
 <!-- jQuery 3 -->
 <script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/jquery.mask.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../../assets/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../assets/js/adminlte.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('.date').mask('00/00/0000');
+  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+  $('.money').mask('000.000.000.000.000,00', {reverse: true});
+});
+</script>
 </body>
 </html>

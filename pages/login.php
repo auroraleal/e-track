@@ -57,7 +57,7 @@
           <button type="submit" class="btn btn-primary btn-block btn-flat">Logar</button>
         </div>
         <div class="col-sm-offset-3 col-xs-4">
-          <!--img src="../imagens/corumba_outsourcing.png"/-->
+          <img src="../imagens/corumba_outsourcing.png"/>
         </div>
 
         <!-- /.col -->

@@ -21,7 +21,12 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-user"></i> <?php echo $_SESSION['email'] . ' - <b>' . $_SESSION['perfil'] . '</b>'; ?>
+              <i class="fa fa-user"></i> 
+              <?php echo '<b>' . $_SESSION['email'] . ' - ' . $_SESSION['perfil'] . '</b>';
+                if (isset($_SESSION['nome_cliente'])) {
+                  echo '<b>' . ' - ' . $_SESSION['nome_cliente'] . '</b>';
+                }
+              ?>
           </a>
           </li>
           

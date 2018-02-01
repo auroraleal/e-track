@@ -3,7 +3,9 @@ session_start();
 include '../utils/bd.php';
 include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("SELECT u.id, u.email, p.nome as perfil, c.idcliente as cliente_id 
+$stmt = $conn->prepare("SELECT u.id, u.email, p.nome as perfil, 
+c.nome as nome_cliente,
+c.idcliente as cliente_id 
 FROM usuario u 
 INNER JOIN perfil p ON u.perfil_id = p.id
 LEFT JOIN cliente c ON u.cliente_id= c.idcliente
@@ -27,6 +29,7 @@ if (empty($results)) {
 
 	$_SESSION['id'] = $results['id'];
 	$_SESSION['email'] = $results['email'];
+	$_SESSION['nome_cliente'] = $results['nome_cliente'];
 	$_SESSION['perfil'] = $results['perfil'];
 
 	switch ($results['perfil']) {
