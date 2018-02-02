@@ -115,6 +115,22 @@ include '../../utils/valida_login.php';
                         <input type="text" class="form-control money" name="quantidade_carregada">
                     </div>
                 </div>
+                <?php if ($_SESSION['perfil'] == 'Administrador') { ?>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Cliente</label>
+                            <select class="form-control" name="cliente">
+                                <option value="">Selecione</option>
+                            <?php
+                                foreach($conn->query('SELECT * FROM cliente') as $row) {
+                                    echo '<option value="'.$row['idcliente'].'">'.$row['nome'].'</option>';
+                                }       
+                            ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php } ?>
+
 </div>
             <div class="box-footer">
               <button type="submit" class="btn btn-primary" style="margin-left: 15px">Cadastrar</button>

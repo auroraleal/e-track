@@ -9,19 +9,15 @@ $stmt->bindParam(':id', $_REQUEST['id']);
 try
 {
   $stmt->execute();
-  
-  if($stmt->rowCount() == 0) {
-    $erro = "Nenhum carregamento encontrado para a placa especificada: " . $placa;
-  } else {
-    $results = $stmt->fetch(PDO::FETCH_ASSOC);
-    $data_carregamento = date("d/m/Y", strtotime($results['data_carregamento']));
-  
-    $entrada_triagem = date("d/m/Y H:i:s", strtotime($results['entrada_triagem']));
-    $saida_triagem = date("d/m/Y H:i:s", strtotime($results['saida_triagem']));
 
-    $entrada_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['entrada_etc_itaituba']));        
-    $saida_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['saida_etc_itaituba']));
-}
+  $results = $stmt->fetch(PDO::FETCH_ASSOC);
+  $data_carregamento = date("d/m/Y", strtotime($results['data_carregamento']));
+
+  $entrada_triagem = date("d/m/Y H:i:s", strtotime($results['entrada_triagem']));
+  $saida_triagem = date("d/m/Y H:i:s", strtotime($results['saida_triagem']));
+
+  $entrada_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['entrada_etc_itaituba']));        
+  $saida_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['saida_etc_itaituba']));
 } catch(PDOException $e)
 {
 	$_SESSION['erro'] = "Erro: " . $e->getMessage();
@@ -140,7 +136,7 @@ try
                 <div class="row">                    
                   <div class="col-md-12">
                     <div class="form-group">
-                        <label style="font-size: 20px">Justificativa</label>
+                        <label style="font-size: 20px"><span style="color: red">Justificativa *</span></label>
                         <textarea required class="form-control" name="justificativa"></textarea>
                     </div>
                   </div>

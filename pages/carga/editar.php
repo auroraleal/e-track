@@ -3,24 +3,24 @@ session_start();
 include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
-if (isset($_SESSION['client_id'])) {
-  $client_id = $_SESSION['client_id'];
-  $stmt = $conn->prepare("SELECT * FROM carga WHERE cliente_id = $client_id;");
+if (isset($_SESSION['cliente_id'])) {
+  $cliente_id = $_SESSION['cliente_id'];
+  $stmt = $conn->prepare("SELECT * FROM carga WHERE idcarga = :idcarga AND cliente_id = $cliente_id");
 } else {
-  $stmt = $conn->prepare("SELECT * FROM carga");
+  $stmt = $conn->prepare("SELECT * FROM carga WHERE idcarga = :idcarga");
 }
 
 try
 {
+  $stmt->bindParam(':idcarga', $_GET['id']);
   $stmt->execute();
   $results = $stmt->fetch(PDO::FETCH_ASSOC);
   
-//  $data_inicio = date('d/m/Y', strtotime($results['inicio']));
-//  $data_termino = date('d/m/Y', strtotime($results['termino']));
+  $data_carregamento = date('d/m/Y', strtotime($results['data_carregamento']));
 }
 catch(PDOException $e)
 {
-	$_SESSION['erro'] = "Erro: " . $e->getMessage();
+    $_SESSION['erro'] = "Erro: " . $e->getMessage();
 }
 ?>
 
@@ -83,63 +83,87 @@ catch(PDOException $e)
             </div>
             <!-- /.box-menu-superior -->
             <div class="box-body">
-              <form role="form" action="../../controllers/carga/novo.php" method="post">
+              <form role="form" action="../../controllers/carga/editar.php" method="post">
+                <input type="hidden" name="idcarga" value="<?=$results['idcarga']?>"/>
+                <input type="hidden" name="operacao" value="EDITAR"/>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Nota Fiscal</label>
-                        <input type="text" class="form-control" name="nota_fiscal">
+                        <input type="text" class="form-control" name="nota_fiscal" value="<?=$results['nota_fiscal']?>">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>CT-e</label>
-                        <input type="text" class="form-control" name="ct_e">
+                        <input type="text" class="form-control" name="ct_e" value="<?=$results['ct_e']?>">
                     </div>
                 </div>  
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Link CT-e</label>
-                        <input type="text" class="form-control" name="link_ct_e">
+                        <input type="text" class="form-control" name="link_ct_e" value="<?=$results['link_ct_e']?>">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Placa</label>
-                        <input type="text" class="form-control" name="placa">
+                        <input type="text" class="form-control" name="placa" value="<?=$results['placa']?>">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>CNPJ da Transportadora</label>
-                        <input type="text" class="form-control cnpj" name="cnpj_transportadora">
+                        <input type="text" class="form-control cnpj" name="cnpj_transportadora" value="<?=$results['cnpj_transportadora']?>">
                     </div>
                 </div> 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Data Carregamento</label>
-                        <input type="text" class="form-control date" name="data_carregamento">
+                        <input type="text" class="form-control date" name="data_carregamento" value="<?=$data_carregamento?>">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                     <label>Produto</label>
                     <select class="form-control" name="produto">
-                    <option value="">Selecione</option>
-                    <option value="MILHO">MILHO</option>
-                    <option value="SOJA">SOJA</option>
+                        <?php if ($results['produto'] == 'MILHO') { ?>
+                            <option selected value="MILHO">MILHO</option>
+                        <?php } ?>
+                        <?php if ($results['produto'] == 'SOJA') { ?>
+                            <option selected value="SOJA">SOJA</option>
+                        <?php } ?>
                     </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Quantidade Carregada (KG)</label>
-                        <input type="text" class="form-control money" name="quantidade_carregada">
+                        <input type="text" class="form-control money" name="quantidade_carregada" value="<?=$results['quantidade_carregada']?>">
                     </div>
                 </div>
+                <?php if ($_SESSION['perfil'] == 'Administrador') { ?>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Cliente</label>
+                            <select class="form-control" name="cliente">
+                                <option value="">Selecione</option>
+                            <?php
+                                foreach($conn->query('SELECT * FROM cliente') as $row) {
+                                    if ($row['idcliente'] == $results['cliente_id']) {
+                                        echo '<option selected value="'.$row['idcliente'].'">'.$row['nome'].'</option>';
+                                    } else {
+                                        echo '<option value="'.$row['idcliente'].'">'.$row['nome'].'</option>';
+                                    }
+                                }       
+                            ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php } ?>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Justificativa</label>
-                        <textarea class="form-control" name="justificativa"></textarea>
+                        <label><span style="color: red">Justificativa *</span></label>
+                        <textarea required class="form-control" name="justificativa"></textarea>
                     </div>
                 </div>
 </div>

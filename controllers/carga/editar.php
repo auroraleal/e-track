@@ -1,48 +1,65 @@
 <?php
 session_start();
 include '../../utils/bd.php';
-include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("UPDATE convenios SET ano = :ano, numero = :numero, orgao_id = :orgao_id, 
-secretaria_id = :secretaria_id, valor_global = :valor_global, inicio = :inicio, termino = :termino, 
-numero_sincov = :numero_sincov, status_id = :status_id, tipo_convenio_id = :tipo_convenio_id, 
-valor_contrapartida = :valor_contrapartida, objeto = :objeto, valor_repasse = :valor_repasse, 
-origem = :origem, repasse = :repasse, contrapartida = :contrapartida, situacao = :situacao, 
-empenhado_id = :empenhado_id, acao_id = :acao_id, termo_convenio_id = :termo_convenio_id
-WHERE id = :id");
+$stmt = $conn->prepare("SELECT * FROM carga WHERE idcarga = :idcarga");
+$stmt->bindParam(':idcarga', $_POST['idcarga']);
+$stmt->execute();
+$results = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$id = $_POST['id'];
-$inicio = date("Y-m-d", strtotime($_POST['inicio']));
-$termino = date("Y-m-d", strtotime($_POST['termino']));
+$stmtAlterar = $conn->prepare("INSERT INTO 
+alteracao_carga (dados, justificativa, operacao, usuario_id, carga_id) 
+VALUES (:dados, :justificativa, :operacao, :usuario_id, :carga_id) ");
 
-$stmt->bindParam(':ano', $_POST['ano']);
-$stmt->bindParam(':numero', $_POST['num_convenio']);
-$stmt->bindParam(':orgao_id', $_POST['orgao']);
-$stmt->bindParam(':secretaria_id', $_POST['secretaria']);
-$stmt->bindParam(':valor_global', $_POST['valor_global']);
-$stmt->bindParam(':inicio', $inicio);
-$stmt->bindParam(':termino', $termino);
-$stmt->bindParam(':numero_sincov', $_POST['numero_sincov']);
-$stmt->bindParam(':status_id', $_POST['status']);
-$stmt->bindParam(':tipo_convenio_id', $_POST['tipo_convenio_id']);
-$stmt->bindParam(':valor_contrapartida', $_POST['valor_contrapartida']);
-$stmt->bindParam(':objeto', $_POST['objeto']);
-$stmt->bindParam(':valor_repasse', $_POST['valor_repasse']);
-$stmt->bindParam(':origem', $_POST['origem']);
-$stmt->bindParam(':repasse', $_POST['repasse']);
-$stmt->bindParam(':contrapartida', $_POST['contrapartida']);
-$stmt->bindParam(':situacao', $_POST['situacao']);
-$stmt->bindParam(':empenhado_id', $_POST['empenhado']);
-$stmt->bindParam(':acao_id', $_POST['acao']);
-$stmt->bindParam(':termo_convenio_id', $_POST['termo']);
-$stmt->bindParam(':id', $id);
+$stmtAlterar->bindParam(':dados', json_encode($results));
+$stmtAlterar->bindParam(':justificativa', $_POST['justificativa']);
+$stmtAlterar->bindParam(':operacao', $_POST['operacao']);
+$stmtAlterar->bindParam(':usuario_id', $_SESSION['id']);
+$stmtAlterar->bindParam(':carga_id', $_POST['idcarga']);
 
 try
 {
-	$stmt->execute();
-	$_SESSION['msg'] = "Convenio editado com sucesso";
+	$stmtAlterar->execute();
+	
+	$query_editar = "UPDATE carga
+	SET
+	cliente_id = :cliente_id,
+	nota_fiscal = :nota_fiscal,
+	ct_e = :ct_e,
+	link_ct_e = :link_ct_e,
+	placa = :placa,
+	cnpj_transportadora = :cnpj_transportadora,
+	data_carregamento = :data_carregamento,
+	produto = :produto,
+	quantidade_carregada = :quantidade_carregada
+	WHERE idcarga = :idcarga";
+	
+	$stmtEditar = $conn->prepare($query_editar);
 
-	menu-superior("Location: ../../pages/convenios/visualizar.php?id=$id");
+	$data_carregamento = date("Y-m-d", strtotime($_POST['data_carregamento']));
+	$quantidade_carregada = str_replace(',','.', str_replace('.','', $_POST['quantidade_carregada']));
+	
+	if (!isset($_SESSION['cliente_id'])) {
+		$cliente_id = $_POST['cliente'];
+	} else {
+		$cliente_id = $_SESSION['cliente_id'];
+	}
+
+	$stmtEditar->bindParam(':cliente_id', $cliente_id);
+	$stmtEditar->bindParam(':nota_fiscal', $_POST['nota_fiscal']);
+	$stmtEditar->bindParam(':ct_e', $_POST['ct_e']);
+	$stmtEditar->bindParam(':link_ct_e', $_POST['link_ct_e']);
+	$stmtEditar->bindParam(':placa', $_POST['placa']);
+	$stmtEditar->bindParam(':cnpj_transportadora', $_POST['cnpj_transportadora']);
+	$stmtEditar->bindParam(':data_carregamento', $data_carregamento);
+	$stmtEditar->bindParam(':produto', $_POST['produto']);
+	$stmtEditar->bindParam(':quantidade_carregada', $quantidade_carregada);
+	$stmtEditar->bindParam(':idcarga', $_POST['idcarga']);
+	$stmtEditar->execute();
+
+	$_SESSION['msg'] = "Carga editada com sucesso";
+
+	header("Location: ../../pages/carga/listar.php");
 }
 catch(PDOException $e)
 {

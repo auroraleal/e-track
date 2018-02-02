@@ -8,7 +8,7 @@ if (isset($_POST['pesquisar'])) {
     $cliente_id = $_SESSION['cliente_id'];
     $query = "SELECT * FROM carga WHERE visivel = true AND cliente_id = $cliente_id";
   } else {
-    $query = "SELECT * FROM carga WHERE visivel = true";  
+    $query = "SELECT * FROM carga WHERE visivel = true";
   }
 
   if (!empty($_POST['data_carregamento'])) {
@@ -177,9 +177,10 @@ if (isset($_POST['pesquisar'])) {
                     <th style="text-align: center">Quantidade (KG)</th>
                     <th style="text-align: center">Ent. Triagem</th>
                     <th style="text-align: center">Ordem Saída - Triagem</th>
+                    <th style="text-align: center">Saida Triagem</th>
                     <th style="text-align: center">Ent. ETC Itaituba</th>
-                    <th style="text-align: center">Ordem Saída ETC Itaituba</th>
-                    <th style="text-align: center">Saida ETC - Itaituba</th>
+                    <th style="text-align: center">Ordem Saída - ETC Itaituba</th>
+                    <th style="text-align: center">Saida ETC Itaituba</th>
                     <th style="text-align: center">Opções</th>
                   </tr>
                 </thead>
@@ -224,7 +225,7 @@ if (isset($_POST['pesquisar'])) {
                       echo "<td align='center'>" . $row['cnpj_transportadora'] .'</td>';
                       echo "<td align='center'>" . $data_carregamento .'</td>';
                       echo "<td align='center'>" . $row['produto'] . '</td>';
-                      echo "<td align='center'>" . $row['quantidade_carregada'] .'</td>';
+                      echo "<td align='center'>" . number_format($row['quantidade_carregada'], 2, ',', '.') .'</td>';
                       echo "<td align='center' style='color: red'>" . $entrada_triagem .'</td>';
                       echo "<td align='center' style='color: red'>" . $row['ordem_saida_triagem'] .'</td>';
                       echo "<td align='center' style='color: red'>" . $saida_triagem .'</td>';
