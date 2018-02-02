@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../utils/bd.php';
-include '../../utils/valida_login.php';
 
 $stmt = $conn->prepare("SELECT u.id, u.usuario, p.nome as perfil, 
 c.nome as nome_cliente,
@@ -21,7 +20,7 @@ $results = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (empty($results)) {
 	$_SESSION['erro'] = "Usuário inexistente";
-	header("Location: /e-track/");
+	header("Location: /");
 } else {
 	if (isset($results['cliente_id'])) {
 		$_SESSION['cliente_id'] = $results['cliente_id'];		

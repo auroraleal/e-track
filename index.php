@@ -45,7 +45,7 @@
     <form action="controllers/LoginController.php" method="post">
       <div class="form-group has-feedback">
         <input type="text" name="usuario" class="form-control" placeholder="Digite seu usuario" >
-        <i class="fa fa-envelope form-control-feedback"></i>
+        <i class="fa fa-user form-control-feedback"></i>
       </div>
       <div class="form-group has-feedback">
         <input type="password" name="senha" class="form-control" placeholder="Digite sua senha" >

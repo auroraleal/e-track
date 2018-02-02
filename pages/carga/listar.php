@@ -12,28 +12,23 @@ if (isset($_POST['pesquisar'])) {
   }
 
   if (!empty($_POST['data_carregamento'])) {
-    $data_carregamento = date_create_from_format('d/m/Y', $_POST['data_carregamento']);
-    $query .= " AND data_carregamento = '" .  $data_carregamento->format('Y-m-d') . "'";
+    $query .= " AND data_carregamento = '" .  $_POST['data_carregamento'] . "'";
   }
   
   if (!empty($_POST['entrada_triagem'])) {
-    $entrada_triagem = date_create_from_format('d/m/Y', $_POST['entrada_triagem']);
-    $query .= " AND DATE(entrada_triagem) = '" .  $entrada_triagem->format('Y-m-d') . "'";
+    $query .= " AND DATE(entrada_triagem) = '" .  $_POST['entrada_triagem'] . "'";
   }
 
   if (!empty($_POST['saida_triagem'])) {
-    $saida_triagem = date_create_from_format('d/m/Y', $_POST['saida_triagem']);
-    $query .= " AND DATE(saida_triagem) = '" .  $saida_triagem->format('Y-m-d') . "'";
+    $query .= " AND DATE(saida_triagem) = '" .  $_POST['saida_triagem'] . "'";
   }
 
   if (!empty($_POST['entrada_etc_itaituba'])) {
-    $entrada_etc_itaituba = date_create_from_format('d/m/Y', $_POST['entrada_etc_itaituba']);
-    $query .= " AND DATE(entrada_etc_itaituba) = '" .  $entrada_etc_itaituba->format('Y-m-d') . "'";
+    $query .= " AND DATE(entrada_etc_itaituba) = '" .  $_POST['entrada_etc_itaituba'] . "'";
   }
 
   if (!empty($_POST['saida_etc_itaituba'])) {
-    $saida_etc_itaituba = date_create_from_format('d/m/Y', $_POST['saida_etc_itaituba']);
-    $query .= " AND DATE(saida_etc_itaituba) = '" .  $saida_etc_itaituba->format('Y-m-d') . "'";
+    $query .= " AND DATE(saida_etc_itaituba) = '" .  $_POST['saida_etc_itaituba'] . "'";
   }
 
   $stmt = $conn->prepare($query);
@@ -51,17 +46,17 @@ if (isset($_POST['pesquisar'])) {
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="/e-track/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/e-track/assets/css/dataTables.jqueryui.css">
-  <link rel="stylesheet" href="/e-track/assets/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../assets/css/dataTables.jqueryui.css">
+  <link rel="stylesheet" href="../../assets/css/buttons.dataTables.min.css">
   
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/e-track/assets/css/font-awesome/css/font-awesome.min.css"
+  <link rel="stylesheet" href="../../assets/css/font-awesome/css/font-awesome.min.css"
   <!-- Theme style -->
-  <link rel="stylesheet" href="/e-track/assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../../assets/css/AdminLTE.min.css">
 <!-- AdminLTE Skins. Choose a skin from the css/skins
      folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="/e-track/assets/css/skin-blue-light.min.css">
+<link rel="stylesheet" href="../../assets/css/skin-blue-light.min.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -118,7 +113,7 @@ if (isset($_POST['pesquisar'])) {
                           <div class="col-md-offset-4 col-md-4">
                             <div class="form-group">
                               <label>Data de Carregamento</label>
-                              <input type="text" name="data_carregamento" class="form-control date">
+                              <input type="date" name="data_carregamento" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -126,13 +121,13 @@ if (isset($_POST['pesquisar'])) {
                           <div class="col-md-offset-4 col-md-2">
                             <div class="form-group">
                               <label>Data de Entrada - Triagem</label>
-                              <input type="text" name="entrada_triagem" class="form-control date">
+                              <input type="date" name="entrada_triagem" class="form-control">
                             </div>
                           </div>
                           <div class="col-md-2">
                             <div class="form-group">
                               <label>Data de Saída - Triagem</label>
-                              <input type="text" name="saida_triagem" class="form-control date">
+                              <input type="date" name="saida_triagem" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -140,13 +135,13 @@ if (isset($_POST['pesquisar'])) {
                           <div class="col-md-offset-4 col-md-2">
                             <div class="form-group">
                               <label>Data de Entrada - ETC Itaituba</label>
-                              <input type="text" name="entrada_etc_itaituba" class="form-control date">
+                              <input type="date" name="entrada_etc_itaituba" class="form-control">
                             </div>
                           </div>
                           <div class="col-md-2">
                             <div class="form-group">
                               <label>Data de Saída - ETC Itaituba</label>
-                              <input type="text" name="saida_etc_itaituba" class="form-control date">
+                              <input type="date" name="saida_etc_itaituba" class="form-control">
                             </div>
                           </div>
                         </div>

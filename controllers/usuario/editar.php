@@ -4,7 +4,7 @@ include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
 $stmt = $conn->prepare("UPDATE usuario SET nome = :nome, 
-email = :email, cliente_id = :cliente, 
+usuario = :usuario, cliente_id = :cliente, 
 perfil_id = :perfil, senha = :senha
 WHERE id = :id");
 
@@ -21,7 +21,7 @@ $cliente = $_POST['cliente'] ? $_POST['cliente'] : null;
 
 $stmt->bindParam(':id', $_POST['id']);
 $stmt->bindParam(':nome', $_POST['nome']);
-$stmt->bindParam(':email', $_POST['email']);
+$stmt->bindParam(':usuario', $_POST['usuario']);
 $stmt->bindParam(':cliente', $cliente);
 $stmt->bindParam(':perfil', $_POST['perfil']);
 $stmt->bindParam(':senha', $senha);

@@ -3,18 +3,6 @@ session_start();
 include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("SELECT u.nome as nome, u.email as email, 
-p.id as perfil_id, c.idcliente as cliente_id,
-u.senha as senha
-FROM usuario u 
-INNER JOIN perfil p ON u.perfil_id = p.id
-LEFT JOIN cliente c ON u.cliente_id= c.idcliente
-WHERE u.id = :id ");
-
-$stmt->bindParam(':id', $_REQUEST['id']);
-$stmt->execute();
-
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -26,14 +14,14 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="/e-track/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/e-track/assets/css/font-awesome/css/font-awesome.min.css"
+  <link rel="stylesheet" href="../../assets/css/font-awesome/css/font-awesome.min.css"
   <!-- Theme style -->
-  <link rel="stylesheet" href="/e-track/assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../../assets/css/AdminLTE.min.css">
 <!-- AdminLTE Skins. Choose a skin from the css/skins
      folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="/e-track/assets/css/skin-blue-light.min.css">
+<link rel="stylesheet" href="../../assets/css/skin-blue-light.min.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

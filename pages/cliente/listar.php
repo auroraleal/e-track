@@ -15,14 +15,14 @@ $stmt->execute();
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="/e-track/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/e-track/assets/css/font-awesome/css/font-awesome.min.css"
+  <link rel="stylesheet" href="../../assets/css/font-awesome/css/font-awesome.min.css"
   <!-- Theme style -->
-  <link rel="stylesheet" href="/e-track/assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../../assets/css/AdminLTE.min.css">
 <!-- AdminLTE Skins. Choose a skin from the css/skins
      folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="/e-track/assets/css/skin-blue-light.min.css">
+<link rel="stylesheet" href="../../assets/css/skin-blue-light.min.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -116,7 +116,7 @@ $stmt->execute();
   </div>
   <!-- /.content-wrapper -->
 
-  <?php include ('/e-track/layout/footer.html');?>
+  <?php include ('../../layout/footer.html');?>
 </div>
 <!-- ./wrapper -->
 

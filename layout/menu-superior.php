@@ -24,7 +24,7 @@
               <i class="fa fa-user"></i> 
               <?php echo '<b>' . $_SESSION['usuario'] . ' - ' . $_SESSION['perfil'] . '</b>';
                 if (isset($_SESSION['nome_cliente'])) {
-                  echo '<b>' . ' - ' . $_SESSION['nome_cliente'] . '</b>';
+                  echo '<b>' . ': ' . $_SESSION['nome_cliente'] . '</b>';
                 }
               ?>
           </a>
@@ -32,7 +32,7 @@
           
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="/e-track/controllers/LogoutController.php">
+            <a href="../../controllers/LogoutController.php">
               <i class="fa fa-sign-out"></i> Sair
             </a>
           </li>

@@ -15,8 +15,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/e-track/pages/carga/novo.php"><i class="fa fa-edit"></i> Cadastrar</a></li>
-            <li><a href="/e-track/pages/carga/listar.php"><i class="fa fa-list"></i> Listar</a></li>
+            <li><a href="../../pages/carga/novo.php"><i class="fa fa-edit"></i> Cadastrar</a></li>
+            <li><a href="../../pages/carga/listar.php"><i class="fa fa-list"></i> Listar</a></li>
          </ul>
         </li>
         <?php } ?>
@@ -31,8 +31,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          <li><a href="/e-track/pages/operador/pesquisar.php"><i class="fa fa-search"></i> Pesquisar</a></li>
-            <li><a href="/e-track/pages/operador/listar.php"><i class="fa fa-list"></i> Listar</a></li>
+          <li><a href="../../pages/operador/pesquisar.php"><i class="fa fa-search"></i> Pesquisar</a></li>
+            <li><a href="../../pages/operador/listar.php"><i class="fa fa-list"></i> Listar</a></li>
           </ul>
         </li>
         <?php } ?>
@@ -45,8 +45,8 @@
               </span>
             </a>
             <ul class="treeview-menu">          
-              <li><a href="/e-track/pages/cliente/novo.php"><i class="fa fa-plus"></i> Cadastrar</a></li>
-              <li><a href="/e-track/pages/cliente/listar.php"><i class="fa fa-address-book"></i> Listar</a></li>
+              <li><a href="../../pages/cliente/novo.php"><i class="fa fa-plus"></i> Cadastrar</a></li>
+              <li><a href="../../pages/cliente/listar.php"><i class="fa fa-address-book"></i> Listar</a></li>
             
          </ul>
         </li>
@@ -60,10 +60,10 @@
           </a>
           <ul class="treeview-menu">
           <?php if ($_SESSION['perfil'] == 'Administrador') { ?>
-            <li><a href="/e-track/pages/usuarios/novo.php"><i class="fa  fa-user-plus "></i> Cadastrar</a></li>
-            <li><a href="/e-track/pages/usuarios/listar.php"><i class="fa fa-users"></i> Listar</a></li>
+            <li><a href="../../pages/usuarios/novo.php"><i class="fa  fa-user-plus "></i> Cadastrar</a></li>
+            <li><a href="../../pages/usuarios/listar.php"><i class="fa fa-users"></i> Listar</a></li>
           <?php } ?>
-            <li><a href="/e-track/pages/usuarios/alterar-senha.php"><i class="fa fa-key"></i> Alterar Senha</a></li>
+            <li><a href="../../pages/usuarios/alterar-senha.php"><i class="fa fa-key"></i> Alterar Senha</a></li>
          </ul>
         </li>
     </section>
