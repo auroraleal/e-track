@@ -3,11 +3,7 @@ session_start();
 include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("SELECT u.id, u.nome, u.email, 
-p.nome as perfil, c.nome as cliente, u.senha 
-FROM usuario u 
-INNER JOIN perfil p ON u.perfil_id = p.id 
-LEFT JOIN cliente c ON u.cliente_id = c.idcliente;");
+$stmt = $conn->prepare("SELECT * FROM cliente");
 $stmt->execute();
 ?>
 
@@ -39,7 +35,7 @@ $stmt->execute();
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -73,7 +69,7 @@ $stmt->execute();
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Lista de Usuários</b></h3>
+              <h3 class="box-title"><b>Lista de Clientes</b></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -82,9 +78,7 @@ $stmt->execute();
                 <tr>
                   <th style="text-align: center">Nome</th>
                   <th style="text-align: center">Email</th>
-                  <th style="text-align: center">Perfil</th>
-                  <th style="text-align: center">Cliente</th>
-                  <th style="text-align: center">Senha</th>
+                  <th style="text-align: center">CNPJ</th>
                   <th style="text-align: center">Opções</th>
                 </tr>
                 </thead>
@@ -93,19 +87,17 @@ $stmt->execute();
                   
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
                     {
-                      $id = $row['id'];
+                      $id = $row['idcliente'];
                       echo '<tr>';
                         echo "<td align='center'>" . $row['nome'] . '</td>';
                         echo "<td align='center'>" . $row['email'] . '</td>';
-                        echo "<td align='center'>" . $row['perfil'] . '</td>';
-                        echo "<td align='center'>" . $row['cliente'] . '</td>';
-                        echo "<td align='center'>" . $row['senha'] . '</td>';
+                        echo "<td align='center'>" . $row['cnpj'] . '</td>';
                         
                     ?>
-                    <td align='center'><a onclick="return confirm('Deseja realmente excluir?');" href='../../controllers/usuario/excluir.php?id=<?=$id?>' class='btn btn-danger'><i class='fa fa-trash'></i></a>
+                    <td align='center'><a onclick="return confirm('Deseja realmente excluir?');" href='../../controllers/cliente/excluir.php?id=<?=$id?>' class='btn btn-danger'><i class='fa fa-trash'></i></a>
 
                     <?php 
-                      echo "&nbsp;&nbsp<a href='editar.php?id=$id' title='Alterar Senha' class='btn btn-primary'><i class='fa fa-edit'></i></a>"  . '</td>';
+                      echo "&nbsp;&nbsp<a href='editar.php?id=$id' title='Editar Cliente' class='btn btn-primary'><i class='fa fa-edit'></i></a>"  . '</td>';
                       echo '</tr>';
                   } ?>
                 </tbody>

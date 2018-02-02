@@ -4,9 +4,9 @@ include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
 if (isset($_POST['pesquisar'])) {
-  if (isset($_SESSION['client_id'])) {
-    $client_id = $_SESSION['client_id'];
-    $query = "SELECT * FROM carga WHERE visivel = true AND cliente_id = $client_id";
+  if (isset($_SESSION['cliente_id'])) {
+    $cliente_id = $_SESSION['cliente_id'];
+    $query = "SELECT * FROM carga WHERE visivel = true AND cliente_id = $cliente_id";
   } else {
     $query = "SELECT * FROM carga WHERE visivel = true";  
   }
@@ -53,7 +53,7 @@ if (isset($_POST['pesquisar'])) {
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="/e-track/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/e-track/assets/css/dataTables.jqueryui.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="/e-track/assets/css/buttons.dataTables.min.css">
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/e-track/assets/css/font-awesome/css/font-awesome.min.css"
@@ -74,7 +74,7 @@ if (isset($_POST['pesquisar'])) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -110,7 +110,8 @@ if (isset($_POST['pesquisar'])) {
             <div class="box">
               <div class="box-header with-border">
                 <center>
-                  <h3 class="box-title"><b>Parâmetros de Pesquisa</b></h3> <!--i style="color: red"><b>(Deixe os campos em branco para listar todos)</b></i></h3-->
+                  <h3 class="box-title"><b>Pesquisar Carregamento</b></h3>
+                  <p><i style="color: red"><b>(Deixe os campos em branco para listar todos)</b></i></p>
                   <form role="form" action="" method="post">
                       <div class="box-body">
                         <div class="row">
@@ -175,9 +176,10 @@ if (isset($_POST['pesquisar'])) {
                     <th style="text-align: center">Produto</th>
                     <th style="text-align: center">Quantidade (KG)</th>
                     <th style="text-align: center">Ent. Triagem</th>
-                    <th style="text-align: center">Saida Triagem</th>
+                    <th style="text-align: center">Ordem Saída - Triagem</th>
                     <th style="text-align: center">Ent. ETC Itaituba</th>
-                    <th style="text-align: center">Saida ETC Itaituba</th>
+                    <th style="text-align: center">Ordem Saída ETC Itaituba</th>
+                    <th style="text-align: center">Saida ETC - Itaituba</th>
                     <th style="text-align: center">Opções</th>
                   </tr>
                 </thead>
@@ -206,6 +208,7 @@ if (isset($_POST['pesquisar'])) {
                       } else {
                         $entrada_etc_itaituba = "-";
                       }
+
                       if (isset($row['saida_etc_itaituba'])) {
                         $saida_etc_itaituba = date("d/m/Y H:i:s", strtotime($row['saida_etc_itaituba']));
                       } else {
@@ -223,8 +226,10 @@ if (isset($_POST['pesquisar'])) {
                       echo "<td align='center'>" . $row['produto'] . '</td>';
                       echo "<td align='center'>" . $row['quantidade_carregada'] .'</td>';
                       echo "<td align='center' style='color: red'>" . $entrada_triagem .'</td>';
+                      echo "<td align='center' style='color: red'>" . $row['ordem_saida_triagem'] .'</td>';
                       echo "<td align='center' style='color: red'>" . $saida_triagem .'</td>';
                       echo "<td align='center' style='color: red'>" . $entrada_etc_itaituba . '</td>';
+                      echo "<td align='center' style='color: red'>" . $row['ordem_saida_etc_itaituba'] .'</td>';
                       echo "<td align='center' style='color: red'>" . $saida_etc_itaituba .'</td>';
                       
                     ?>
@@ -265,12 +270,11 @@ if (isset($_POST['pesquisar'])) {
 <script src="../../assets/js/dataTables.bootstrap.min.js"></script>
 <script src="../../assets/js/adminlte.min.js"></script>
 
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+<script src="../../assets/js/dataTables.buttons.min.js"></script>
+<script src="../../assets/js/jszip.min.js"></script>
+<script src="../../assets/js/pdfmake.min.js"></script>
+<script src="../../assets/js/vfs_fonts.js"></script>
+<script src="../../assets/js/buttons.html5.min.js"></script>
 
 
 <!-- page script -->
@@ -279,6 +283,7 @@ $(document).ready(function() {
     $('.date').mask('00/00/0000');
 
     $('#tabela').dataTable({
+        aaSorting: [],
         oLanguage: {
             "sLengthMenu": "Exibir _MENU_ registros por página",
             "sZeroRecords": "Nenhum registro encontrado",
@@ -298,7 +303,7 @@ $(document).ready(function() {
           {
             extend:    'excelHtml5',
             exportOptions: {
-              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 14 ]
             },
             text:      '<i class="fa fa-file-excel-o"></i>',
             titleAttr: 'Exportar - Excel'
@@ -306,7 +311,7 @@ $(document).ready(function() {
           {
             extend:    'pdfHtml5',
             exportOptions: {
-              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 14 ]
             },
             orientation: 'landscape',
             text:      '<i class="fa fa-file-pdf-o"></i>',

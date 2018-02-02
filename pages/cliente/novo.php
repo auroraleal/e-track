@@ -34,7 +34,7 @@ include '../../utils/valida_login.php';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -82,24 +82,9 @@ include '../../utils/valida_login.php';
 
             <div class="col-md-4">
               <div class="form-group">
-                      <label>Senha</label>
-                      <input type="password" name= "senha" class="form-control">
+                      <label>CNPJ</label>
+                      <input type="text" name="cnpj" class="form-control cnpj">
                   </div>
-            </div>
-
-
-              	<div class="col-md-4">
-	        		<div class="form-group">
-                  		<label>Perfil</label>
-		                  <select class="form-control" name="perfil">
-                            <option value="">Selecione</option>
-                        <?php
-        foreach($conn->query('SELECT * FROM perfil') as $row) {
-            echo '<option value="'.$row['id'].'">'.$row['nome'].'</option>';
-        }       
-    ?>
-		                  </select>
-                	</div>
             </div>
 
 </div>
@@ -122,9 +107,16 @@ include '../../utils/valida_login.php';
 
 <!-- jQuery 3 -->
 <script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/jquery.mask.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../../assets/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../assets/js/adminlte.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+});
+</script>
+
 </body>
 </html>

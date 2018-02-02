@@ -3,7 +3,7 @@ session_start();
 include '../../utils/bd.php';
 
 $id = $_GET['id'];
-$stmt = $conn->prepare("DELETE FROM cliente WHERE id = $id");
+$stmt = $conn->prepare("DELETE FROM cliente WHERE idcliente = $id");
 
 try
 {

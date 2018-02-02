@@ -3,7 +3,7 @@ session_start();
 include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("SELECT u.id, u.nome, u.email, 
+$stmt = $conn->prepare("SELECT u.id, u.nome, u.usuario, 
 p.nome as perfil, c.nome as cliente ,u.senha 
 FROM usuario u 
 INNER JOIN perfil p ON u.perfil_id = p.id
@@ -39,7 +39,7 @@ $stmt->execute();
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -81,7 +81,7 @@ $stmt->execute();
                 <thead>
                 <tr>
                   <th style="text-align: center">Nome</th>
-                  <th style="text-align: center">Email</th>
+                  <th style="text-align: center">Usuario</th>
                   <th style="text-align: center">Perfil</th>
                   <th style="text-align: center">Cliente</th>
                   <th style="text-align: center">Senha</th>
@@ -96,7 +96,7 @@ $stmt->execute();
                       $id = $row['id'];
                       echo '<tr>';
                         echo "<td align='center'>" . $row['nome'] . '</td>';
-                        echo "<td align='center'>" . $row['email'] . '</td>';
+                        echo "<td align='center'>" . $row['usuario'] . '</td>';
                         echo "<td align='center'>" . $row['perfil'] . '</td>';
                         echo "<td align='center'>" . $row['cliente'] . '</td>';
                         echo "<td align='center'>" . $row['senha'] . '</td>';

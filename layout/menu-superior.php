@@ -22,7 +22,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-user"></i> 
-              <?php echo '<b>' . $_SESSION['email'] . ' - ' . $_SESSION['perfil'] . '</b>';
+              <?php echo '<b>' . $_SESSION['usuario'] . ' - ' . $_SESSION['perfil'] . '</b>';
                 if (isset($_SESSION['nome_cliente'])) {
                   echo '<b>' . ' - ' . $_SESSION['nome_cliente'] . '</b>';
                 }

@@ -16,57 +16,13 @@ try
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
     $data_carregamento = date("d/m/Y", strtotime($results['data_carregamento']));
   
-    if ($_SESSION['perfil'] == 'Operador Triagem') {
-      if (!$results['entrada_triagem']) {
-        $titulo = "Confirmar Entrada - Triagem";
-        $operacao = "entrada_triagem";
-      } else if (!$results['saida_triagem']) {
-        $entrada_triagem = date("d/m/Y H:i:s", strtotime($results['entrada_triagem']));
-        $titulo = "Confirmar Saída - Triagem";
-        $operacao = "saida_triagem";
-      } else {
-        $entrada_triagem = date("d/m/Y H:i:s", strtotime($results['entrada_triagem']));
-        $saida_triagem = date("d/m/Y H:i:s", strtotime($results['saida_triagem']));
+    $entrada_triagem = date("d/m/Y H:i:s", strtotime($results['entrada_triagem']));
+    $saida_triagem = date("d/m/Y H:i:s", strtotime($results['saida_triagem']));
 
-        $erro = "Já existem lançamentos para este carregamento.";
-      }
-
-    } else if ($_SESSION['perfil'] == 'Operador ETC') {
-      if (!$results['entrada_etc_itaituba']) {
-        $titulo = "Confirmar Entrada - ETC Itaituba";
-        $operacao = "entrada_etc_itaituba";
-      } else if (!$results['saida_etc_itaituba']) {
-        $titulo = "Confirmar Saída - ETC Itaituba";
-        $operacao = "saida_etc_itaituba";
-        $entrada_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['entrada_etc_itaituba']));
-      } else {
-        $entrada_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['entrada_etc_itaituba']));        
-        $saida_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['saida_etc_itaituba']));
-        $erro = "Já existem lançamentos para este carregamento.";
-      }
-    } else {
-      $erro = " ";
-    }
-  }
-  if ($_SESSION['perfil'] == 'Administrador')  {
-    if ($results['entrada_triagem']) {
-      $entrada_triagem = date("d/m/Y H:i:s", strtotime($results['entrada_triagem']));      
-    }
-    
-    if ($results['saida_triagem']) {
-      $saida_triagem = date("d/m/Y H:i:s", strtotime($results['saida_triagem']));      
-    }
-
-    if ($results['entrada_etc_itaituba']) {
-      $entrada_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['entrada_etc_itaituba']));      
-    }
-
-    if ($results['saida_etc_itaituba']) {
-      $saida_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['saida_etc_itaituba']));      
-    }
-  }
+    $entrada_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['entrada_etc_itaituba']));        
+    $saida_etc_itaituba = date("d/m/Y H:i:s", strtotime($results['saida_etc_itaituba']));
 }
-catch(PDOException $e)
+} catch(PDOException $e)
 {
 	$_SESSION['erro'] = "Erro: " . $e->getMessage();
 }
@@ -100,7 +56,7 @@ catch(PDOException $e)
 <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -130,11 +86,6 @@ catch(PDOException $e)
             </div>
             <!-- /.box-menu-superior -->
             <div class="box-body">
-              <?php if ($erro && $_SESSION['perfil'] != 'Administrador') { ?>
-                <center>
-                  <p style="font-size: 20px; color: red"><?=$erro?></p>
-                </center>
-              <?php } ?>
               <form role="form" action="../../controllers/carga/excluir.php" method="post">
                 <input type="hidden" name="idcarga" value="<?=$results['idcarga']?>"/>
                 <input type="hidden" name="operacao" value="EXCLUIR"/>
@@ -170,8 +121,6 @@ catch(PDOException $e)
                     <p style="font-size: 20px">Quantidade Carregada (KG): <?=$results['quantidade_carregada']?></p>
                   </div>
                 </div>
-                <?php if ($_SESSION['perfil'] == 'Operador Triagem' ||
-                          $_SESSION['perfil'] == 'Administrador') { ?>
                   <div class="row">
                     <div class="col-md-6">
                       <p style="font-size: 20px; color: red">Entrada Triagem: <?=$entrada_triagem?></p>
@@ -180,7 +129,6 @@ catch(PDOException $e)
                       <p style="font-size: 20px; color: red">Saída Triagem: <?=$saida_triagem?></p>
                     </div>
                   </div>
-                <?php } ?>
                  <div class="row">
                     <div class="col-md-6">
                       <p style="font-size: 20px; color: red">Entrada ETC Itaituba: <?=$entrada_etc_itaituba?></p>
@@ -193,7 +141,7 @@ catch(PDOException $e)
                   <div class="col-md-12">
                     <div class="form-group">
                         <label style="font-size: 20px">Justificativa</label>
-                        <textarea class="form-control" name="justificativa"></textarea>
+                        <textarea required class="form-control" name="justificativa"></textarea>
                     </div>
                   </div>
                 </div>

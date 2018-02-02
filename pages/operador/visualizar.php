@@ -100,7 +100,7 @@ catch(PDOException $e)
 <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -200,7 +200,7 @@ catch(PDOException $e)
             </div>
   
   <?php } else { ?>
-    <a class="btn btn-primary" onclick="history.back()" href="#">Voltar</a>  
+    <a class="btn btn-primary" href="pesquisar.php">Nova Pesquisa</a>  
     <br/>
     <br/>
   <?php } ?>

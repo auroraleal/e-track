@@ -3,7 +3,7 @@ session_start();
 include '../../utils/bd.php';
 include '../../utils/valida_login.php';
 
-$stmt = $conn->prepare("SELECT u.nome as nome, u.email as email, 
+$stmt = $conn->prepare("SELECT u.nome as nome, u.usuario as usuario, 
 p.id as perfil_id, c.idcliente as cliente_id,
 u.senha as senha
 FROM usuario u 
@@ -46,7 +46,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -87,8 +87,8 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <div class="col-md-4">
               <div class="form-group">
-                      <label>Email</label>
-                      <input  type="text" name= "email" class="form-control" value="<?=$result['email']?>">
+                      <label>Usuario</label>
+                      <input  type="text" name="usuario" class="form-control" value="<?=$result['usuario']?>">
                   </div>
             </div>
 

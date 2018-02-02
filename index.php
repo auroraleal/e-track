@@ -10,12 +10,12 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../assets/css/font-awesome/css/font-awesome.min.css"  
+  <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.min.css"  
 
   <!-- Theme style -->
-  <link rel="stylesheet" href="../assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,13 +38,13 @@
   <?php } ?>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <img src="../imagens/logo.png"></img>
+    <img src="imagens/logo.png"></img>
    <h2 style="text-align: center;">e-TRACK </h2>
     <hr/>
 
-    <form action="../controllers/LoginController.php" method="post">
+    <form action="controllers/LoginController.php" method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="email" class="form-control" placeholder="Digite seu Email" >
+        <input type="text" name="usuario" class="form-control" placeholder="Digite seu usuario" >
         <i class="fa fa-envelope form-control-feedback"></i>
       </div>
       <div class="form-group has-feedback">
@@ -57,7 +57,7 @@
           <button type="submit" class="btn btn-primary btn-block btn-flat">Logar</button>
         </div>
         <div class="col-sm-offset-3 col-xs-4">
-          <img src="../imagens/corumba_outsourcing.png"/>
+          <img src="imagens/corumba_outsourcing.png"/>
         </div>
 
         <!-- /.col -->
@@ -67,8 +67,5 @@
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-
-<!-- jQuery 3 -->
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 </body>
 </html>

@@ -7,13 +7,15 @@ $operacao = $_POST['operacao'];
 
 switch ($operacao) {
     case 'entrada_triagem' :
-        $query = "UPDATE carga SET entrada_triagem = now() WHERE idcarga = :id";
+        $query = "UPDATE carga SET entrada_triagem = now(), ordem_saida_triagem = ordem_saida('triagem')
+                  WHERE idcarga = :id";
         break;
     case 'saida_triagem' :
         $query = "UPDATE carga SET saida_triagem = now() WHERE idcarga = :id";
         break;
     case 'entrada_etc_itaituba' :
-        $query = "UPDATE carga SET entrada_etc_itaituba = now() WHERE idcarga = :id";
+        $query = "UPDATE carga SET entrada_etc_itaituba = now(), ordem_saida_etc_itaituba = ordem_saida('etc_itaituba')
+                  WHERE idcarga = :id";
         break;
     case 'saida_etc_itaituba' :
         $query = "UPDATE carga SET saida_etc_itaituba = now() WHERE idcarga = :id";
@@ -25,7 +27,7 @@ $stmt->bindParam(':id', $_POST['idcarga']);
 
 try
 {
-	$stmt->execute();
+    $stmt->execute();
 	$_SESSION['msg'] = "Operação registrada com sucesso";
 
 	header("Location: ../../pages/operador/pesquisar.php");
