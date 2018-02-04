@@ -17,7 +17,8 @@ VALUES
 :cnpj_transportadora, :data_carregamento,
 :produto, :quantidade_carregada)");
 
-$data_carregamento = date("Y-m-d", strtotime($_POST['data_carregamento']));
+$dt = new DateTime();
+$data_carregamento = $dt->format('Y-m-d H:m:s');
 $quantidade_carregada = str_replace(',','.', str_replace('.','', $_POST['quantidade_carregada']));
 
 if (!isset($_SESSION['cliente_id'])) {
@@ -37,10 +38,10 @@ $stmt->bindParam(':produto', $_POST['produto']);
 $stmt->bindParam(':quantidade_carregada', $quantidade_carregada);
 
 
-	$stmt->execute();
-	$_SESSION['msg'] = "Carga cadastrada com sucesso";
+$stmt->execute();
+$_SESSION['msg'] = "Carga cadastrada com sucesso";
 
-	header("Location: ../../pages/carga/listar.php");
+header("Location: ../../pages/carga/listar.php");
 }
 catch(Exception $e)
 {

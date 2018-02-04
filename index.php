@@ -5,8 +5,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>e-track</title>
-
+  <title> e-Track - CIANPORT </title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -26,6 +27,29 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style>
+    .corumba {
+      margin-left: 20px;    
+    }
+    @media (max-width: 400px) {
+      .logo {
+        width: 300px;
+        margin: 0;
+      }
+      .corumba {
+        margin-left: 90px
+      }
+    }
+    @media (max-width: 350px) {
+      .logo {
+        width: 280px;
+        margin: 0; 
+      }
+      .corumba {
+        margin-left: 60px
+      }
+    }
+  </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -38,8 +62,10 @@
   <?php } ?>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <img src="imagens/logo.png"></img>
-   <h2 style="text-align: center;">e-TRACK </h2>
+    <center>
+      <img class="logo" src="/assets/images/logo.png"></img>
+      <img src="/assets/images/etrack-pequeno.png"></img>
+    </center>
     <hr/>
 
     <form action="controllers/LoginController.php" method="post">
@@ -57,7 +83,7 @@
           <button type="submit" class="btn btn-primary btn-block btn-flat">Logar</button>
         </div>
         <div class="col-sm-offset-3 col-xs-4">
-          <img src="imagens/corumba_outsourcing.png"/>
+          <img class="corumba" src="/assets/images/corumba_outsourcing.png"/>
         </div>
 
         <!-- /.col -->

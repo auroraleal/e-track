@@ -29,14 +29,12 @@ try
 	link_ct_e = :link_ct_e,
 	placa = :placa,
 	cnpj_transportadora = :cnpj_transportadora,
-	data_carregamento = :data_carregamento,
 	produto = :produto,
 	quantidade_carregada = :quantidade_carregada
 	WHERE idcarga = :idcarga";
 	
 	$stmtEditar = $conn->prepare($query_editar);
 
-	$data_carregamento = date("Y-m-d", strtotime($_POST['data_carregamento']));
 	$quantidade_carregada = str_replace(',','.', str_replace('.','', $_POST['quantidade_carregada']));
 	
 	if (!isset($_SESSION['cliente_id'])) {
@@ -51,7 +49,6 @@ try
 	$stmtEditar->bindParam(':link_ct_e', $_POST['link_ct_e']);
 	$stmtEditar->bindParam(':placa', $_POST['placa']);
 	$stmtEditar->bindParam(':cnpj_transportadora', $_POST['cnpj_transportadora']);
-	$stmtEditar->bindParam(':data_carregamento', $data_carregamento);
 	$stmtEditar->bindParam(':produto', $_POST['produto']);
 	$stmtEditar->bindParam(':quantidade_carregada', $quantidade_carregada);
 	$stmtEditar->bindParam(':idcarga', $_POST['idcarga']);

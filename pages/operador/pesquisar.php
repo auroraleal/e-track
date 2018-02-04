@@ -9,7 +9,7 @@ include '../../utils/valida_login.php';
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>e-track</title>
+<title> e-Track - CIANPORT </title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -33,7 +33,7 @@ include '../../utils/valida_login.php';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -71,18 +71,18 @@ include '../../utils/valida_login.php';
               <h3 class="box-title">Pesquisar Carga</h3>
             </div>
             <!-- /.box-header -->
-            <form role="form" action="visualizar.php" method="post">
+            <form role="form" action="listar.php" method="post">
             <div class="box-body">
               
             <div class="col-md-offset-4 col-md-4">
               <div class="form-group">
                       <label>Placa</label>
-                      <input type="text" name="placa" class="form-control" placeholder="Digite o número da placa">
+                      <input type="text" name="placa" class="form-control mask-plate" placeholder="Digite o número da placa">
                   </div>
             </div>
 </div>
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary" style="margin-left: 15px">Pesquisar</button>
+              <button name="pesquisar" type="submit" class="btn btn-primary" style="margin-left: 15px">Pesquisar</button>
             </div>
 
 </form>
@@ -101,9 +101,28 @@ include '../../utils/valida_login.php';
 
 <!-- jQuery 3 -->
 <script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/jquery.mask.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../../assets/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../assets/js/adminlte.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.mask-plate').mask('SSS-0000', {
+            'translation': {
+                S: {pattern: /[A-Za-z]/},
+                0: {pattern: /[0-9]/}
+            }
+            ,onKeyPress: function (value, event) {
+                event.currentTarget.value = value.toUpperCase();
+            }
+    });
+});
+</script>
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+  })
+</script>
 </body>
 </html>

@@ -3,9 +3,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>TRACK</b></span>
+      <span class="logo-mini"><img src="/assets/images/etrack-logo-interno-pequeno.png"></img></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>e-track</b></span>
+      <span class="logo-lg"><img style="margin-left: -18px" src="/assets/images/etrack-logo-interno.png"></img></span>
     </a>
 
     <!-- menu-superior Navbar: style can be found in menu-superior.less -->

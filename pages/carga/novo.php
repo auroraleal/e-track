@@ -8,7 +8,7 @@ include '../../utils/valida_login.php';
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>e-track</title>
+<title> e-Track - CIANPORT </title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -32,7 +32,7 @@ include '../../utils/valida_login.php';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -84,7 +84,7 @@ include '../../utils/valida_login.php';
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Placa</label>
-                        <input type="text" class="form-control" name="placa">
+                        <input type="text" class="form-control mask-plate" name="placa">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -95,14 +95,8 @@ include '../../utils/valida_login.php';
                 </div> 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Data Carregamento</label>
-                        <input type="text" class="form-control date" name="data_carregamento">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
                     <label>Produto</label>
-                    <select class="form-control" name="produto">
+                    <select required class="form-control" name="produto">
                     <option value="">Selecione</option>
                     <option value="MILHO">MILHO</option>
                     <option value="SOJA">SOJA</option>
@@ -156,10 +150,24 @@ include '../../utils/valida_login.php';
 <script src="../../assets/js/adminlte.min.js"></script>
 <script>
 $(document).ready(function(){
-  $('.date').mask('00/00/0000');
-  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
-  $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    $('.date').mask('00/00/0000');
+    $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    $('.mask-plate').mask('SSS-0000', {
+            'translation': {
+                S: {pattern: /[A-Za-z]/},
+                0: {pattern: /[0-9]/}
+            }
+            ,onKeyPress: function (value, event) {
+                event.currentTarget.value = value.toUpperCase();
+            }
+    });
 });
+</script>
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+  })
 </script>
 </body>
 </html>

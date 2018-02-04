@@ -15,8 +15,6 @@ try
   $stmt->bindParam(':idcarga', $_GET['id']);
   $stmt->execute();
   $results = $stmt->fetch(PDO::FETCH_ASSOC);
-  
-  $data_carregamento = date('d/m/Y', strtotime($results['data_carregamento']));
 }
 catch(PDOException $e)
 {
@@ -29,7 +27,7 @@ catch(PDOException $e)
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>e-track</title>
+<title> e-Track - CIANPORT </title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -53,7 +51,7 @@ catch(PDOException $e)
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
   <?php include ('../../layout/menu-superior.php') ?>
@@ -116,12 +114,6 @@ catch(PDOException $e)
                         <input type="text" class="form-control cnpj" name="cnpj_transportadora" value="<?=$results['cnpj_transportadora']?>">
                     </div>
                 </div> 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Data Carregamento</label>
-                        <input type="text" class="form-control date" name="data_carregamento" value="<?=$data_carregamento?>">
-                    </div>
-                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                     <label>Produto</label>
@@ -194,6 +186,11 @@ $(document).ready(function(){
   $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
 });
+</script>
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+  })
 </script>
 </body>
 </html>
